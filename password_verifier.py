@@ -39,7 +39,7 @@ def password_strength(password):
         if any(char in symbols for char in password):
             rating += 3
     else:
-        print('Password must be at least 8 and no more than 20 characters long.') 
+        rating = 0
 
     return rating
 
