@@ -42,8 +42,3 @@ def password_strength(password):
         rating = 0
 
     return rating
-
-
-print('Hello, please enter a password to test: ')
-password = input()
-print(f' Rating: {password_strength(password)}')

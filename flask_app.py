@@ -2,12 +2,13 @@
 
 from flask import Flask, request
 from password_verifier import password_strength
+import requests
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
 @app.route('/', methods=["GET", "POST"])
-def hello_world():
+def verify_password():
     errors=''
     if request.method == 'POST':
         password = ''
@@ -15,7 +16,7 @@ def hello_world():
             password = request.form["password"]
         except:
             errors += "<p>{!r} is not a string.</p>\n".format(request.form["password"])
-        if len(password) > 0:
+        if len(password) in range (8,21):
             result = password_strength(password)
             return '''
                 <html>
@@ -26,7 +27,10 @@ def hello_world():
                 </html>
             '''.format(result=result)
         else:
-            errors += "<p>Please enter a password.</p>\n"
+            return '''
+                <p>Please enter a password between 8 and 20 characters long.</p>
+                <p><a href="/">Click here to verify another password.</a></p>
+                '''
 
     return '''
         <html>
